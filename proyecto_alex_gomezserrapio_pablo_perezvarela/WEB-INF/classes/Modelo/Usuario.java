@@ -19,47 +19,47 @@ public class Usuario {
 	}
 
 	// Setters
-	private void setUsername(String username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
-	private void setPassword(String password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
-	private void setMail(String mail) {
+	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	private void setVip(boolean vip) {
+	public void setVip(boolean vip) {
 		this.vip = vip;
 	}
-	private void setAdmin(boolean admin) {
+	public void setAdmin(boolean admin) {
 		this.admin = admin;
 	}
-	private void setCarrito(Carrito carrito) {
+	public void setCarrito(Carrito carrito) {
 		this.carrito = carrito;
 	}
-	private void setHistorialCompras(ArrayList<Compra> historialCompras) {
+	public void setHistorialCompras(ArrayList<Compra> historialCompras) {
 		this.historialCompras = historialCompras;
 	}
 	// Getters
-	private String getUsername() {
+	public String getUsername() {
 		return this.username;
 	}
-	private String getPassword() {
+	public String getPassword() {
 		return this.password;
 	}
-	private String getMail() {
+	public String getMail() {
 		return this.mail;
 	}
-	private boolean getVip() {
+	public boolean getVip() {
 		return this.vip;
 	}
-	private boolean getAdmin() {
+	public boolean getAdmin() {
 		return this.admin;
 	}
-	private Carrito getCarrito() {
+	public Carrito getCarrito() {
 		return this.carrito;
 	}
-	private ArrayList<Compra> getHistorialCompras() {
+	public ArrayList<Compra> getHistorialCompras() {
 		return this.historialCompras;
 	}
 }

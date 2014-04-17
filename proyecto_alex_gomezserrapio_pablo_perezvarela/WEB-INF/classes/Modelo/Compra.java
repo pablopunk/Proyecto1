@@ -11,6 +11,7 @@ public class Compra {
 	private int valoracion;
 	private String comentarios;
 	private float precio;
+	private ProductoCarrito producto;
 
 	public Compra() {
 	}
@@ -31,6 +32,9 @@ public class Compra {
 	public void setPrecio (float precio) {
 		this.precio = precio;
 	}
+	public void setProducto (ProductoCarrito producto) {
+		this.producto = producto;
+	}
 	// Getters
 	public String getId () {
 		return this.id;
@@ -46,5 +50,8 @@ public class Compra {
 	}
 	public float getPrecio () {
 		return this.precio;
+	}
+	public ProductoCarrito getProducto () {
+		return this.producto;
 	}
 }

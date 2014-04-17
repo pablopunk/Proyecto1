@@ -23,20 +23,10 @@ pageEncoding="UTF-8"%>
 		</header>
 		<div id="menu">
 			<a href=""><li>Tienda</li></a>
-
-			<c:choose>
-				<c:when test="${sessionScope.username != null}">
-					<a href="perfil.jsp"><li class="lista_ultimo" style="color:#0BD318">${sessionScope.username}</li></a>
-				</c:when>
-				<c:otherwise>
-					<a href=""><li>Registro</li></a>
-					<a href="iniciar_sesion.jsp"><li class="lista_ultimo">Iniciar sesión</li></a>
-				</c:otherwise>
-			</c:choose>
+			<a href="perfil.jsp"><li class="lista_ultimo" style="color:#0BD318">${sessionScope.username}</li></a>
 		</div>
 
-		<h3 id="texto_bienvenida">Bienvenido a nuestra página de venta discos. Arriba de este texto encontrarás el menú con el que navegar por las distintas secciones de nuestra web. Irá cambiando según la página donde te encuetres.</h3>
-		<a href="tienda.jsp"><img src="img/itunes_logo.png" onmouseover="this.src='img/itunes_logo2.png'" onmouseout="this.src='img/itunes_logo.png'"/></a>
+		<br><br>
 
 		<footer>
 			<span style="float:left">Copyright 2014 ©</span>
