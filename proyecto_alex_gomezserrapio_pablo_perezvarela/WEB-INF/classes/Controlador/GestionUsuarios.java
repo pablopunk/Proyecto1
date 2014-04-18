@@ -12,7 +12,7 @@ public class GestionUsuarios extends HttpServlet {
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
 
-        // Petición desde el index.jsp
+        // Petición desde iniciar_sesion.jsp
         if (request.getParameter("iniciar_sesion") != null) {
             String username = request.getParameter("form_username");
             String password = request.getParameter("form_password");
@@ -28,6 +28,26 @@ public class GestionUsuarios extends HttpServlet {
                 mostrarPaginaError(e.getMessage(), "iniciar_sesion.jsp", session, request, response);
             }
         }
+
+        // Peticion desde el perfil.jsp
+        if (request.getParameter("cerrar_sesion") != null) {
+            try {
+                if (session.getAttribute("username") != null) {
+                    session.removeAttribute("username");
+                }
+                gotoPage("/index.jsp", request, response);
+            } catch (Exception e) {
+                mostrarPaginaError(e.getMessage(), "index.jsp", session, request, response);
+            }
+        }
+        if (request.getParameter("mostrar_historial_compras") != null) {
+            try {
+                // MOSTRAR HISTORIAL DE COMPRAS
+            } catch (Exception e) {
+                mostrarPaginaError(e.getMessage(), "perfil.jsp", session, request, response);
+            }
+        }
+
     }
 
     

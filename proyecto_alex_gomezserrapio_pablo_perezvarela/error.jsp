@@ -22,7 +22,7 @@ pageEncoding="UTF-8"%>
 			<h1>Música para DAA</h1>
 		</header>
 		<div id="menu">
-			<a href="${sessionScope.volver}" class="listaultimo"><li>Volver</li></a>
+			<a href="${sessionScope.volver}"><li class="lista_ultimo">Volver</li></a>
 		</div>
 		
 		<h3 id="texto_bienvenida">${sessionScope.error}</h3>

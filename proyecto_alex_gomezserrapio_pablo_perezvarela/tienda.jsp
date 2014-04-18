@@ -12,6 +12,18 @@ pageEncoding="UTF-8"%>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="css/index.css">
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+
+	<style type="text/css">
+	.cuadro_producto {
+		width: 200px;
+		height: 200px;
+		display: inline-block;
+		background-color: white;
+		margin: 20px;
+		border-radius: 5px;
+	}
+	</style>
+
 </head>
 
 <body>
@@ -39,14 +51,20 @@ pageEncoding="UTF-8"%>
 	</c:otherwise>
 </c:choose>
 </div>
+		
+		<c:forEach var="iterator" items="${sessionScope.productos}">
+			<div class="cuadro_producto">
+				<img src=""/>
+				<h3>${iterator.cd.nombre}</h3>
+				<h4>${iterator.cd.autor}</h4>
+				<p>${iterator.cd.precio}</p>
+			</div>
+		</c:forEach>
 
-<h3 id="texto_bienvenida">Bienvenido a nuestra página de venta discos. Arriba de este texto encontrarás el menú con el que navegar por las distintas secciones de nuestra web. Irá cambiando según la página donde te encuetres.</h3>
-<a href="tienda.jsp"><img src="img/itunes_logo.png" onmouseover="this.src='img/itunes_logo2.png'" onmouseout="this.src='img/itunes_logo.png'"/></a>
-
-<footer>
-	<span style="float:left">Copyright 2014 ©</span>
-	<span style="float:right">Alex Serrapio y Pablo Varela</span>
-</footer>
+	<footer>
+		<span style="float:left">Copyright 2014 ©</span>
+		<span style="float:right">Alex Serrapio y Pablo Varela</span>
+	</footer>
 
 </center>
 </body>

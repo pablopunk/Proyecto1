@@ -30,6 +30,10 @@ div#menu {
 	width: 100%;
 }
 
+div#menu form {
+	display: inline;
+}
+
 div#menu li {
 	display: inline;
 

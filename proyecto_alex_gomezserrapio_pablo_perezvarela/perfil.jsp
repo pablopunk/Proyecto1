@@ -12,6 +12,17 @@ pageEncoding="UTF-8"%>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="css/index.css">
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+
+	<style type="text/css">
+	.button {
+		width: 200px;
+		border-radius: 5px;
+	}
+	.button_small {
+		width: 120px;
+		border-radius: 5px;
+	}
+	</style>
 </head>
 
 <body>
@@ -27,6 +38,18 @@ pageEncoding="UTF-8"%>
 		</div>
 
 		<br><br>
+
+		<form action="/proyecto_alex_gomezserrapio_pablo_perezvarela/GestionUsuarios" method="post">
+			<input type="hidden" name="mostrar_historial_compras"/>
+			<input type="image" src="img/mostrar_historial_compras.png" class="button"> 
+		</form>
+
+		<br><br>
+
+		<form action="/proyecto_alex_gomezserrapio_pablo_perezvarela/GestionUsuarios" method="post">
+			<input type="hidden" name="cerrar_sesion"/>
+			<input type="image" src="img/cerrar_sesion.png" class="button_small"> 
+		</form>
 
 		<footer>
 			<span style="float:left">Copyright 2014 ©</span>
