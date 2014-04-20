@@ -3,11 +3,11 @@
 package Modelo;
 
 import java.util.ArrayList;
-import java.sql.Date;
+import java.sql.*;
 
 public class Compra {
-	private String id;
-	private Date fecha;
+	private String username;
+	private String fecha;
 	private int valoracion;
 	private String comentarios;
 	private float precio;
@@ -17,10 +17,10 @@ public class Compra {
 	}
 
 	// Setters
-	public void setId (String id) {
-		this.id = id;
+	public void setUsername (String username) {
+		this.username = username;
 	}
-	public void setFecha (Date fecha) {
+	public void setFecha (String fecha) {
 		this.fecha = fecha;
 	}
 	public void setValoracion (int valoracion) {
@@ -36,10 +36,10 @@ public class Compra {
 		this.producto = producto;
 	}
 	// Getters
-	public String getId () {
-		return this.id;
+	public String getUsername () {
+		return this.username;
 	}
-	public Date getFecha () {
+	public String getFecha () {
 		return this.fecha;
 	}
 	public int getValoracion () {

@@ -4,6 +4,7 @@ package Modelo;
 public class ProductoCarrito {
     private CD cd;
     private int cantidad;
+    private int stock;
     
     public ProductoCarrito() {
     	this.cd = new CD();
@@ -22,6 +23,10 @@ public class ProductoCarrito {
     public void setCantidad (int cantidad) {
     	this.cantidad = cantidad;
     }
+
+    public void setStock (int stock) {
+        this.stock = stock;
+    }
     
     public CD getCd() {
 		return this.cd;
@@ -29,6 +34,10 @@ public class ProductoCarrito {
     
     public int getCantidad() {
     	return this.cantidad;
+    }
+
+    public int getStock() {
+        return this.stock;
     }
     
     public float getPrecioTotal() {

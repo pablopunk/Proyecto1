@@ -79,27 +79,24 @@ pageEncoding="UTF-8"%>
 	</c:otherwise>
 </c:choose>
 </div>
+
 <form method="post" action="/proyecto_alex_gomezserrapio_pablo_perezvarela/Tienda">
-	<c:forEach var="iterator" items="${sessionScope.productos}">
+	<c:set var="precioTotal" value="${0}"/>
+	<c:forEach var="iterator" items="${sessionScope.carrito.productos}">
 	<div class="cuadro_producto">
 		<img src="tienda-img/${iterator.cd.id}.jpg"/>
 		<p class="titulo">${iterator.cd.nombre}</p>
 		<p class="autor">${iterator.cd.autor}</p>
-		<p class="precio">$${iterator.cd.precio}</p>
-		<c:choose>
-		<c:when test="${iterator.stock == 0}">
-		<p class="stock" style="color: red">No quedan unidades</p>
-	</c:when>
-	<c:otherwise>
-	<p class="stock">${iterator.stock} restantes</p>
-	<input type="number" name="cantidad_${iterator.cd.id}" value="0" min="0" max="${iterator.stock}"/>
-</c:otherwise>	
-</c:choose>
-</div>
-</c:forEach>
+		<p class="precio">${iterator.cantidad}</p>
+		<p class="precio"><fmt:formatNumber value="${iterator.cd.precio*iterator.cantidad}" type="currency" currencySymbol="&dollar;" /></p>
+		<c:set var="precioTotal" value="${precioTotal + (iterator.cd.precio*iterator.cantidad)}" />
+	</div>
+	</c:forEach>
 
-<input type="hidden" name="comprar">
-<input type="image" src="img/comprar.png" class="button">
+	<h3>Precio Total: <fmt:formatNumber value="${precioTotal}" type="currency" currencySymbol="&dollar;" /></h3>
+
+<input type="hidden" name="finalizar_compra">
+<input type="image" src="img/finalizar_compra.png" class="button">
 
 </form>
 

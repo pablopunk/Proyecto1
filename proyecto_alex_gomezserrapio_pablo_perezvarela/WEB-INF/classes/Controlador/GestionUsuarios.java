@@ -19,7 +19,7 @@ public class GestionUsuarios extends HttpServlet {
             try {
                 if (ControladorBD.validarUsuario(username, password)) {
                     Usuario usuario = ControladorBD.obtenerUsuario(username);
-                    session.setAttribute("username", usuario.getUsername());
+                    session.setAttribute("user", usuario);
                     gotoPage("/perfil.jsp", request, response);
                 } else {
                     mostrarPaginaError("La combinación de usuario y contraseña es errónea", "iniciar_sesion.jsp", session, request, response);
@@ -32,8 +32,9 @@ public class GestionUsuarios extends HttpServlet {
         // Peticion desde el perfil.jsp
         if (request.getParameter("cerrar_sesion") != null) {
             try {
-                if (session.getAttribute("username") != null) {
-                    session.removeAttribute("username");
+                if (session.getAttribute("user") != null) {
+                    session.removeAttribute("user");
+                    session.removeAttribute("carrito");
                 }
                 gotoPage("/index.jsp", request, response);
             } catch (Exception e) {

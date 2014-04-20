@@ -2,23 +2,30 @@
 package Modelo;
 
 public class CD {
+    private String id;
     private String nombre;
     private String autor;
     private String pais;
     private float precio;
     
     public CD() {
+        this.id = "";
     	this.nombre = "";
     	this.autor = "";
     	this.pais = "";
     	this.precio = 0.0f;
     }
     
-    public CD (String nombre, String autor, String pais, float precio) {
+    public CD (String id, String nombre, String autor, String pais, float precio) {
+        this.id = id;
     	this.nombre = nombre;
     	this.autor = autor;
     	this.pais = pais;
     	this.precio = precio;
+    }
+
+    public String getId() {
+        return this.id;
     }
     
     public String getNombre() {
@@ -37,6 +44,10 @@ public class CD {
     	return this.precio;
     }
     
+    public void setId (String id) {
+        this.id = id;
+    }
+
     public void setNombre (String nombre) {
     	this.nombre = nombre;
     }

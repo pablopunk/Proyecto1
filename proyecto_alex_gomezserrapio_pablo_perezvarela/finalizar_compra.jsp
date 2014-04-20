@@ -12,6 +12,46 @@ pageEncoding="UTF-8"%>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="css/index.css">
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+
+	<style type="text/css">
+	.cuadro_producto {
+		width: 200px;
+		display: inline-block;
+		background-color: white;
+		margin: 20px;
+		border-radius: 5px;
+	}
+
+	.cuadro_producto img {
+		margin-top: 10px;
+		width: 150px;
+		border-radius: 5px;
+	}
+
+	.cuadro_producto .titulo {
+		font-weight: bold;
+	}
+
+	.cuadro_producto .autor {
+		color: rgb(255,135,3);
+	}
+
+	.cuadro_producto .stock {
+		font-size: 10px;
+		display: inline;
+	}
+
+	.cuadro_producto .cantidad_comprar {
+		display: inline;
+		width: 40px;
+		margin-bottom: 10px;
+	}
+
+	.button {
+		width: 150px;
+		display: block;
+	}
+	</style>
 </head>
 
 <body>
@@ -22,23 +62,10 @@ pageEncoding="UTF-8"%>
 			<h1>Música para DAA</h1>
 		</header>
 		<div id="menu">
-			<form id="formulario_ver_tienda" method="post" action="/proyecto_alex_gomezserrapio_pablo_perezvarela/Tienda">
-				<input type="hidden" name="mostrar_tienda">
-				<a href="javascript:{}" onclick="document.getElementById('formulario_ver_tienda').submit();"><li>Tienda</li></a>
-			</form>
-			<a href=""><li>Registro</li></a>
-			<a href=""><li class="lista_ultimo">Iniciar sesión</li></a>
+			<a href="perfil.jsp"><li class="lista_ultimo">Volver</li></a>
 		</div>
 		
-		<form action="/proyecto_alex_gomezserrapio_pablo_perezvarela/GestionUsuarios" method="post">
-			<br><br>
-			<input type="hidden" value="" name="iniciar_sesion"/>
-			<label>Username</label>
-			<input type="text" name="form_username"><br>
-			<label>Password</label>
-			<input type="password" name="form_password"><br>
-			<input type="submit" value="Iniciar sesion">
-		</form>
+		<h3 id="texto_bienvenida">Gracias por comprar en Musica para DAA. Te hemos enviado un correo de confirmación a <span style="color:#0BD318">${sessionScope.user.mail}</span>.</h3>
 
 		<footer>
 			<span style="float:left">Copyright 2014 ©</span>

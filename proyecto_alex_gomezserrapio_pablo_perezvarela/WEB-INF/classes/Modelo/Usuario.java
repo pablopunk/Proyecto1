@@ -8,8 +8,8 @@ public class Usuario {
 	private String username;
 	private String password;
 	private String mail;
-	private boolean vip;
 	private boolean admin;
+	private boolean vip;
 	private Carrito carrito;
 	private ArrayList<Compra> historialCompras;
 	
@@ -28,11 +28,11 @@ public class Usuario {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	public void setVip(boolean vip) {
-		this.vip = vip;
-	}
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
+	}
+	public void setVip(boolean vip) {
+		this.vip = vip;
 	}
 	public void setCarrito(Carrito carrito) {
 		this.carrito = carrito;
@@ -50,11 +50,11 @@ public class Usuario {
 	public String getMail() {
 		return this.mail;
 	}
-	public boolean getVip() {
-		return this.vip;
-	}
 	public boolean getAdmin() {
 		return this.admin;
+	}
+	public boolean getVip() {
+		return this.vip;
 	}
 	public Carrito getCarrito() {
 		return this.carrito;

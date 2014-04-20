@@ -18,7 +18,7 @@ pageEncoding="UTF-8"%>
 	<center>
 
 		<header>
-			<a href="tienda.jsp"><img id="logo" src="img/itunes_logo.png" onmouseover="this.src='img/itunes_logo2.png'" onmouseout="this.src='img/itunes_logo.png'"/></a>
+			<a href="index.jsp"><img id="logo" src="img/itunes_logo.png" onmouseover="this.src='img/itunes_logo2.png'" onmouseout="this.src='img/itunes_logo.png'"/></a>
 			<h1>Música para DAA</h1>
 		</header>
 		<div id="menu">
@@ -30,8 +30,8 @@ pageEncoding="UTF-8"%>
 			</form>
 
 			<c:choose>
-			<c:when test="${sessionScope.username != null}">
-			<a href="perfil.jsp"><li class="lista_ultimo" style="color:#0BD318">${sessionScope.username}</li></a>
+			<c:when test="${sessionScope.user != null}">
+			<a href="perfil.jsp"><li class="lista_ultimo" style="color:#0BD318">${sessionScope.user.username}</li></a>
 		</c:when>
 		<c:otherwise>
 		<a href=""><li>Registro</li></a>
@@ -41,7 +41,11 @@ pageEncoding="UTF-8"%>
 </div>
 
 <h3 id="texto_bienvenida">Bienvenido a nuestra página de venta discos. Arriba de este texto encontrarás el menú con el que navegar por las distintas secciones de nuestra web. Irá cambiando según la página donde te encuetres.</h3>
-<a href="tienda.jsp"><img src="img/itunes_logo.png" onmouseover="this.src='img/itunes_logo2.png'" onmouseout="this.src='img/itunes_logo.png'"/></a>
+
+<form id="formulario_ver_tienda2" method="post" action="/proyecto_alex_gomezserrapio_pablo_perezvarela/Tienda">
+				<input type="hidden" name="mostrar_tienda">
+				<a href="javascript:{}"><img src="img/itunes_logo.png" onmouseover="this.src='img/itunes_logo2.png'" onmouseout="this.src='img/itunes_logo.png'" onclick="document.getElementById('formulario_ver_tienda2').submit();"/></a>
+			</form>
 
 <footer>
 	<span style="float:left">Copyright 2014 ©</span>

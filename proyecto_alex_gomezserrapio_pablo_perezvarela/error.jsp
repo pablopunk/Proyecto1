@@ -18,7 +18,7 @@ pageEncoding="UTF-8"%>
 	<center>
 
 		<header>
-			<a href="tienda.jsp"><img id="logo" src="img/itunes_logo.png" onmouseover="this.src='img/itunes_logo2.png'" onmouseout="this.src='img/itunes_logo.png'"/></a>
+			<a href="index.jsp"><img id="logo" src="img/itunes_logo.png" onmouseover="this.src='img/itunes_logo2.png'" onmouseout="this.src='img/itunes_logo.png'"/></a>
 			<h1>Música para DAA</h1>
 		</header>
 		<div id="menu">

@@ -50,6 +50,31 @@ public class ControladorBD {
         return false;
     }
 
+    // Devuelve TRUE si el usuario tiene mas de 100 compras
+    public static boolean esVip(String username) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+        Connection con = obtenerConexionBD();
+        Statement statement = con.createStatement();
+        String query = "SELECT count(*) FROM comprar WHERE username='" + username + "';";
+        ResultSet resultado = null;
+        int ncompras=0;
+        try {
+            resultado = statement.executeQuery(query);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+
+        while (resultado.next()) {
+           ncompras = resultado.getInt(0);
+        }
+
+        if (ncompras > 99) {
+            return true;
+        }
+
+        return false;
+    }
+
     // Devuelve el CD asociado a un producto de un pedido
     public static CD obtenerProducto(String id) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
         Connection con = obtenerConexionBD();
@@ -67,6 +92,7 @@ public class ControladorBD {
 
         while (resultado.next()) {
             String descripcionCD = resultado.getString("descripcion");
+            cd.setId(resultado.getString("id"));
             cd.setNombre(cortarNombre(descripcionCD));
             cd.setAutor(cortarAutor(descripcionCD));
             cd.setPrecio(cortarPrecio(descripcionCD));
@@ -77,10 +103,10 @@ public class ControladorBD {
     }
 
     // Devuelve el producto y la cantidad de una compra concreta
-    public static ProductoCarrito obtenerProductoCompra(int id) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+    public static ProductoCarrito obtenerProductoCompra(String fecha, String username) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
         Connection con = obtenerConexionBD();
         Statement statement = con.createStatement();
-        String query = "SELECT * FROM productos_pedido WHERE compra='" + id + "';";
+        String query = "SELECT * FROM productos_pedido WHERE fechaCompra='" + fecha + "' AND username='" + username + "';";
         ResultSet resultado = null;
         ProductoCarrito producto = new ProductoCarrito();
         try {
@@ -91,7 +117,7 @@ public class ControladorBD {
         }
 
         while (resultado.next()) {
-            producto.setCd(obtenerProducto(resultado.getString("id")));
+            producto.setCd(obtenerProducto(resultado.getString("producto")));
             producto.setCantidad(resultado.getInt("cantidad"));
         }
 
@@ -102,7 +128,7 @@ public class ControladorBD {
     public static ArrayList<Compra> obtenerHistorialCompras(String username) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
         Connection con = obtenerConexionBD();
         Statement statement = con.createStatement();
-        String query = "SELECT * FROM compras WHERE username='" + username + "';";
+        String query = "SELECT * FROM comprar WHERE username='" + username + "';";
         ResultSet resultado = null;
         ArrayList<Compra> compras = new ArrayList<>();
         try {
@@ -114,12 +140,12 @@ public class ControladorBD {
 
         while (resultado.next()) {
             Compra nuevaCompra = new Compra();
-            nuevaCompra.setId(resultado.getString("id"));
-            nuevaCompra.setFecha(resultado.getDate("fecha"));
+            nuevaCompra.setUsername(resultado.getString("username"));
+            nuevaCompra.setFecha(resultado.getString("fecha"));
             nuevaCompra.setValoracion(resultado.getInt("valoracion"));
             nuevaCompra.setComentarios(resultado.getString("comentarios"));
             nuevaCompra.setPrecio(resultado.getFloat("precio"));
-            nuevaCompra.setProducto(obtenerProductoCompra(resultado.getInt("id")));
+            nuevaCompra.setProducto(obtenerProductoCompra(resultado.getString("fecha"),resultado.getString("username")));
             compras.add(nuevaCompra);
         }
 
@@ -143,7 +169,6 @@ public class ControladorBD {
             usuario.setUsername(resultado.getString("username"));
             usuario.setPassword(resultado.getString("password"));
             usuario.setMail(resultado.getString("mail"));
-            usuario.setVip(resultado.getBoolean("vip"));
             usuario.setAdmin(resultado.getBoolean("admin")); 
             usuario.setHistorialCompras(obtenerHistorialCompras(resultado.getString("username"))); 
         }
@@ -168,11 +193,74 @@ public class ControladorBD {
         while (resultado.next()) {
             ProductoCarrito producto = new ProductoCarrito();
             producto.setCd(obtenerProducto(resultado.getString("producto")));
-            producto.setCantidad(resultado.getInt("cantidad"));
+            producto.setStock(resultado.getInt("cantidad"));
             productos.add(producto);
         }
 
         return productos;
+    }
+
+    public static int obtenerStockProducto (String id) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+        Connection con = obtenerConexionBD();
+        Statement statement = con.createStatement();
+        String query = "SELECT cantidad FROM productos_stock WHERE producto='"+id+"';";
+        ResultSet resultado = null;
+        int stock = 0;
+        try {
+            resultado = statement.executeQuery(query);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return -1;
+        }
+
+        while (resultado.next()) {
+            stock = resultado.getInt("cantidad");
+        }
+
+        return stock;
+    }
+
+    public static void actualizarStockProducto (String id, int cantidadComprada) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+        Connection con = obtenerConexionBD();
+        Statement statement = con.createStatement();
+
+        int cantidadAntigua = 0;
+
+        String query = "UPDATE productos_stock(cantidad) SET cantidad="+(cantidadAntigua-cantidadComprada)+" WHERE producto='"+id+"';";
+
+        try {
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static String insertarProductoCompra (String id, int cantidad, float precio, String fecha, String username) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+        Connection con = obtenerConexionBD();
+        Statement statement = con.createStatement();
+
+        String query = "INSERT INTO productos_pedido VALUES ('"+id+"','"+cantidad+"',"+precio+",'"+fecha+"','"+username+"');";
+
+        try {
+            statement.executeUpdate(query);
+            actualizarStockProducto(id,cantidad);
+        } catch (SQLException e) {
+            return e.getMessage();
+        }
+        return "ok";
+    }
+    public static String insertarCompra (String username, float precioTotal, String fecha) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+        Connection con = obtenerConexionBD();
+        Statement statement = con.createStatement();
+
+        String query = "INSERT INTO comprar(fecha,precio,username) VALUES ('"+fecha+"',"+precioTotal+",'"+username+"'); ";
+
+        try {
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            return e.getMessage();
+        }
+        return "ok";
     }
 
     private static float cortarPrecio (String descripcionCD) {
