@@ -98,18 +98,19 @@ pageEncoding="UTF-8"%>
 			<a href="registro.jsp"><li>Registro</li></a>
 			<a href="iniciar_sesion.jsp"><li class="lista_ultimo">Iniciar sesión</li></a>
 		</div>
-		<form action="/proyecto_alex_gomezserrapio_pablo_perezvarela/GestionUsuarios" method="post">
-			<br><br>
-			<input type="hidden" value="" name="registro"/>
-			<label>Username</label>
-			<input type="text" name="form_username"><br>
-			<label>Password</label>
-			<input type="password" name="form_password"><br>
-			<label>Confirmar Password</label>
-			<input type="password" name="form_password2"><br>
+		<br><br>
+		<form action="/proyecto_alex_gomezserrapio_pablo_perezvarela/GestionUsuarios" method="post" onsubmit="return validar();">
 			<label>Correo</label>
-			<input type="text" name="form_mail"><br>
-			<input type="submit" value="Registrarse">
+			<input type="text" name="form_mail" id="form_mail"><br><br>
+			<label>Nombre de usuario</label>
+			<input type="text" name="form_username" id="form_username"><br><br>
+			<label>Contraseña</label>
+			<input type="password" name="form_password" id="form_password"><br><br>
+			<label>Confirmar contraseña</label>
+			<input type="password" name="form_password2" id="form_password2"><br><br>
+			<input type="hidden" value="" name="registro"/>
+
+			<input type="submit" value="Registrarse"/>
 		</form>
 
 		<footer>

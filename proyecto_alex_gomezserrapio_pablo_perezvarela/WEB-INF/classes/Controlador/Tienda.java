@@ -48,22 +48,24 @@ public class Tienda extends HttpServlet {
 				// Comprobar cantidades correctas
 				for (ProductoCarrito iterator : productos) {
 					try {
-						int c = Integer.parseInt(request.getParameter("cantidad_"+iterator.getCd().getId()));
-						if (c > iterator.getStock()) {
-							mostrarPaginaError("Solo hay "+iterator.getStock()+" unidades del CD "+iterator.getCd().getNombre()+" y has introducido "+c+". Por favor, ingresa una cantidad correcta.", "index.jsp", session, request, response);
-							return;
-						} else if (c < 0) {
-							mostrarPaginaError("Has introducido cantidades negativas.", "index.jsp", session, request, response);
-							return;
-						}
-						if (c > 0) {
-							carritoVacio = false;
-							int index = carrito.contiene(iterator);
-							if (index != -1) {
-								carrito.aumentarCantidadProducto(index, c);
-							} else {
-								iterator.setCantidad(c);
-								carrito.addProducto(iterator);
+						if (request.getParameter("cantidad_"+iterator.getCd().getId()) != null) {
+							int c = Integer.parseInt(request.getParameter("cantidad_"+iterator.getCd().getId()));
+							if (c > iterator.getStock()) {
+								mostrarPaginaError("Solo hay "+iterator.getStock()+" unidades del CD "+iterator.getCd().getNombre()+" y has introducido "+c+". Por favor, ingresa una cantidad correcta.", "index.jsp", session, request, response);
+								return;
+							} else if (c < 0) {
+								mostrarPaginaError("Has introducido cantidades negativas.", "index.jsp", session, request, response);
+								return;
+							}
+							if (c > 0) {
+								carritoVacio = false;
+								int index = carrito.contiene(iterator);
+								if (index != -1) {
+									carrito.aumentarCantidadProducto(index, c);
+								} else {
+									iterator.setCantidad(c);
+									carrito.addProducto(iterator);
+								}
 							}
 						}
 					} catch (Exception e) {

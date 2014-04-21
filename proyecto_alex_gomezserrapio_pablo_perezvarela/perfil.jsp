@@ -25,29 +25,41 @@ pageEncoding="UTF-8"%>
 	</style>
 </head>
 
+<c:choose>
+<c:when test="${empty sessionScope.user}">
+
+<body onload="window.location = 'iniciar_sesion.jsp';"></body>
+
+</c:when>
+<c:otherwise>
+
 <body>
-	<center>
 
-		<header>
-			<a href="index.jsp"><img id="logo" src="img/itunes_logo.png" onmouseover="this.src='img/itunes_logo2.png'" onmouseout="this.src='img/itunes_logo.png'"/></a>
-			<h1>Música para DAA</h1>
-		</header>
-		<div id="menu">
-			<form id="formulario_ver_tienda" method="post" action="/proyecto_alex_gomezserrapio_pablo_perezvarela/Tienda">
-				<input type="hidden" name="mostrar_tienda">
-				<a href="javascript:{}" onclick="document.getElementById('formulario_ver_tienda').submit();"><li>Tienda</li></a>
-			</form>
-			<a href="buscar.jsp"><li>Buscar</li></a>
-			<a href="perfil.jsp"><li class="lista_ultimo" style="color:#0BD318">${sessionScope.user.username}</li></a>
-		</div>
+</c:otherwise>
+</c:choose>
 
-		<br><br>
-		<p>${sessionScope.user.username} - ${sessionScope.user.mail}</p>
+<center>
 
-		<c:choose>
-		<c:when test="${sessionScope.user.vip == true}">
-		<h3 style="color:#0BD318">Eres usuario VIP</h3>
-	</c:when>
+	<header>
+		<a href="index.jsp"><img id="logo" src="img/itunes_logo.png" onmouseover="this.src='img/itunes_logo2.png'" onmouseout="this.src='img/itunes_logo.png'"/></a>
+		<h1>Música para DAA</h1>
+	</header>
+	<div id="menu">
+		<form id="formulario_ver_tienda" method="post" action="/proyecto_alex_gomezserrapio_pablo_perezvarela/Tienda">
+			<input type="hidden" name="mostrar_tienda">
+			<a href="javascript:{}" onclick="document.getElementById('formulario_ver_tienda').submit();"><li>Tienda</li></a>
+		</form>
+		<a href="buscar.jsp"><li>Buscar</li></a>
+		<a href="perfil.jsp"><li class="lista_ultimo" style="color:#0BD318">${sessionScope.user.username}</li></a>
+	</div>
+
+	<br><br>
+	<p>${sessionScope.user.username} - ${sessionScope.user.mail}</p>
+
+	<c:choose>
+	<c:when test="${sessionScope.user.vip == true}">
+	<h3 style="color:#0BD318">Eres usuario VIP</h3>
+</c:when>
 </c:choose>
 
 <br><br>
