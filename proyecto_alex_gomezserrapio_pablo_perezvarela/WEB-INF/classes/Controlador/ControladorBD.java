@@ -195,7 +195,8 @@ public static Usuario obtenerUsuario(String username) throws ClassNotFoundExcept
         usuario.setPassword(resultado.getString("password"));
         usuario.setMail(resultado.getString("mail"));
         usuario.setAdmin(resultado.getBoolean("admin")); 
-        usuario.setHistorialCompras(obtenerHistorialCompras(resultado.getString("username"))); 
+        usuario.setHistorialCompras(obtenerHistorialCompras(resultado.getString("username")));
+		usuario.setVip(ControladorBD.esVip(usuario.getUsername()));
     }
 
     return usuario;
