@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
@@ -27,17 +27,21 @@ pageEncoding="UTF-8"%>
 				<a href="javascript:{}" onclick="document.getElementById('formulario_ver_tienda').submit();"><li>Tienda</li></a>
 			</form>
 			<a href="registro.jsp"><li>Registro</li></a>
-			<a href=""><li class="lista_ultimo">Iniciar sesión</li></a>
+			<a href="iniciar_sesion.jsp"><li class="lista_ultimo">Iniciar sesión</li></a>
 		</div>
 		
 		<form action="/proyecto_alex_gomezserrapio_pablo_perezvarela/GestionUsuarios" method="post">
 			<br><br>
-			<input type="hidden" value="" name="iniciar_sesion"/>
+			<input type="hidden" value="" name="registro"/>
 			<label>Username</label>
 			<input type="text" name="form_username"><br>
 			<label>Password</label>
 			<input type="password" name="form_password"><br>
-			<input type="submit" value="Iniciar sesion">
+			<label>Confirmar Password</label>
+			<input type="password" name="form_password2"><br>
+			<label>Correo</label>
+			<input type="text" name="form_mail"><br>
+			<input type="submit" value="Registrarse">
 		</form>
 
 		<footer>

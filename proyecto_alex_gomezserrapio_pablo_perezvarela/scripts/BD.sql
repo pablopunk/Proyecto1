@@ -1,7 +1,7 @@
 
--- create user 'dawa'@'localhost' identified by 'dawa';
--- create database proyecto1;
--- grant all privileges on proyecto1.* to 'dawa'@'localhost' with grant option;
+--create user 'dawa'@'localhost' identified by 'dawa';
+--create database proyecto1;
+--grant all privileges on proyecto1.* to 'dawa'@'localhost' with grant option;
 use proyecto1; 
 
 drop table if exists usuarios;
@@ -32,7 +32,7 @@ create table productos_pedido (
 
 drop table if exists productos_stock;
 create table productos_stock (
-	producto integer NOT NULL PRIMARY KEY,
+	producto varchar(16) NOT NULL PRIMARY KEY,
 	cantidad integer,
 	FOREIGN KEY (producto) REFERENCES productos(id)
 );

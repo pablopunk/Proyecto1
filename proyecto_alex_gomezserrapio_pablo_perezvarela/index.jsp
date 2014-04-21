@@ -34,7 +34,7 @@ pageEncoding="UTF-8"%>
 			<a href="perfil.jsp"><li class="lista_ultimo" style="color:#0BD318">${sessionScope.user.username}</li></a>
 		</c:when>
 		<c:otherwise>
-		<a href=""><li>Registro</li></a>
+		<a href="registro.jsp"><li>Registro</li></a>
 		<a href="iniciar_sesion.jsp"><li class="lista_ultimo">Iniciar sesión</li></a>
 	</c:otherwise>
 </c:choose>

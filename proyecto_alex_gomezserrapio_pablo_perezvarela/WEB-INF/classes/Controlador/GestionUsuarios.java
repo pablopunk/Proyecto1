@@ -29,6 +29,28 @@ public class GestionUsuarios extends HttpServlet {
             }
         }
 
+		
+		// Petición desde registro.jsp
+		if (request.getParameter("registro") != null) {
+            String username = request.getParameter("form_username");
+            String password = request.getParameter("form_password");
+			String password2 = request.getParameter("form_password2");
+			String mail = request.getParameter("form_mail");
+			String ok;
+            try {
+                if (username != "" && password != "" && password2 != "" && mail != "" && password.equals(password2)) {
+                    ok = ControladorBD.insertarUsuario(username,password,mail);
+                    if (ok!="ok"){
+						mostrarPaginaError(ok,"/registro.jsp", session, request, response);
+					}
+					else gotoPage("/index.jsp", request, response);
+                } else {
+                    mostrarPaginaError("Algún dato es incorrecto o las contraseñas no coinciden", "/registro.jsp", session, request, response);
+                }
+            } catch (Exception e) {
+                mostrarPaginaError(e.getMessage(), "registro.jsp", session, request, response);
+            }
+        }
         // Peticion desde el perfil.jsp
         if (request.getParameter("cerrar_sesion") != null) {
             try {

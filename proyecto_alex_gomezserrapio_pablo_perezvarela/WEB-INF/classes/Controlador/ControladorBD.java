@@ -249,6 +249,21 @@ public class ControladorBD {
         }
         return "ok";
     }
+	
+	public static String insertarUsuario (String username, String password, String mail) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+        Connection con = obtenerConexionBD();
+        Statement statement = con.createStatement();
+
+        String query = "INSERT INTO usuarios VALUES ('"+username+"','"+password+"','"+mail+"','0');";
+
+        try {
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            return e.getMessage();
+        }
+        return "ok";
+    }
+	
     public static String insertarCompra (String username, float precioTotal, String fecha) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
         Connection con = obtenerConexionBD();
         Statement statement = con.createStatement();
