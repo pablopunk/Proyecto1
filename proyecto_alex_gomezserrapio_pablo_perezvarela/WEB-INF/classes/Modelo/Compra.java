@@ -11,7 +11,7 @@ public class Compra {
 	private int valoracion;
 	private String comentarios;
 	private float precio;
-	private ArrayList<ProductoCarrito> productos;
+	private ProductoCarrito producto;
 
 	public Compra() {
 	}
@@ -32,14 +32,14 @@ public class Compra {
 	public void setPrecio (float precio) {
 		this.precio = precio;
 	}
-	public void setProductos (ArrayList<ProductoCarrito> productos) {
-		this.productos = productos;
+	public void setProducto (ProductoCarrito producto) {
+		this.producto = producto;
 	}
 	// Getters
 	public String getUsername () {
 		return this.username;
 	}
-	public String getFecha() {
+	public String getFecha () {
 		return this.fecha;
 	}
 	public int getValoracion () {
@@ -51,7 +51,7 @@ public class Compra {
 	public float getPrecio () {
 		return this.precio;
 	}
-	public ArrayList<ProductoCarrito> getProductos () {
-		return this.productos;
+	public ProductoCarrito getProducto () {
+		return this.producto;
 	}
 }

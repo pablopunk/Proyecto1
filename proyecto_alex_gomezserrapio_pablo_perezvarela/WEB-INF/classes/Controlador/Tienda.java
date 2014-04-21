@@ -83,7 +83,6 @@ public class Tienda extends HttpServlet {
 				Carrito carrito = (Carrito) session.getAttribute("carrito");
 				Usuario usuario = (Usuario) session.getAttribute("user");
 				registrarCompra(usuario, carrito.getProductos(), session, request, response);
-				session.setAttribute("carrito", new Carrito());
 			} catch (Exception e) {
 				mostrarPaginaError(e.getMessage(), "index.jsp", session, request, response);
 				return;

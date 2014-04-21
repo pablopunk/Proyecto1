@@ -102,13 +102,13 @@ public class ControladorBD {
         return cd;
     }
 
-    // Devuelve los productos y la cantidad de una compra
-    public static ArrayList<ProductoCarrito> obtenerProductosCompra(String fecha, String username) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+    // Devuelve el producto y la cantidad de una compra concreta
+    public static ProductoCarrito obtenerProductoCompra(String fecha, String username) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
         Connection con = obtenerConexionBD();
         Statement statement = con.createStatement();
         String query = "SELECT * FROM productos_pedido WHERE fechaCompra='" + fecha + "' AND username='" + username + "';";
         ResultSet resultado = null;
-        ArrayList<ProductoCarrito> productos = new ArrayList<>();
+        ProductoCarrito producto = new ProductoCarrito();
         try {
             resultado = statement.executeQuery(query);
         } catch (SQLException e) {
@@ -117,13 +117,11 @@ public class ControladorBD {
         }
 
         while (resultado.next()) {
-            ProductoCarrito producto = new ProductoCarrito();
             producto.setCd(obtenerProducto(resultado.getString("producto")));
             producto.setCantidad(resultado.getInt("cantidad"));
-            productos.add(producto);
         }
 
-        return productos;
+        return producto;
     }
 
     // Devuelve las compras de un usuario
@@ -147,7 +145,7 @@ public class ControladorBD {
             nuevaCompra.setValoracion(resultado.getInt("valoracion"));
             nuevaCompra.setComentarios(resultado.getString("comentarios"));
             nuevaCompra.setPrecio(resultado.getFloat("precio"));
-            nuevaCompra.setProductos(obtenerProductosCompra(resultado.getString("fecha"),resultado.getString("username")));
+            nuevaCompra.setProducto(obtenerProductoCompra(resultado.getString("fecha"),resultado.getString("username")));
             compras.add(nuevaCompra);
         }
 
