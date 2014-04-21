@@ -92,12 +92,23 @@ pageEncoding="UTF-8"%>
 		<p class="precio"><fmt:formatNumber value="${iterator.cd.precio*iterator.cantidad}" type="currency" currencySymbol="&dollar;" /></p>
 		<c:set var="precioTotal" value="${precioTotal + (iterator.cd.precio*iterator.cantidad)}" />
 	</div>
-	</c:forEach>
+</c:forEach>
 
-	<h3>Precio Total: <fmt:formatNumber value="${precioTotal}" type="currency" currencySymbol="&dollar;" /></h3>
+<c:choose>
+<c:when test="${not empty sessionScope.carrito.productos}">
+
+<h3>Precio Total: <fmt:formatNumber value="${precioTotal}" type="currency" currencySymbol="&dollar;" /></h3>
 
 <input type="hidden" name="finalizar_compra">
 <input type="image" src="img/finalizar_compra.png" class="button">
+
+</c:when>
+<c:otherwise>
+
+<h3>El carrito está vacío</h3>
+
+</c:otherwise>
+</c:choose>
 
 </form>
 

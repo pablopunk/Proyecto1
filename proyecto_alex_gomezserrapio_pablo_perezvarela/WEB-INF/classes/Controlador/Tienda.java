@@ -33,6 +33,7 @@ public class Tienda extends HttpServlet {
 			@SuppressWarnings("unchecked")
 			ArrayList<ProductoCarrito> productos = (ArrayList<ProductoCarrito>) session.getAttribute("productos");
 			Carrito carrito = new Carrito();
+			boolean carritoVacio = true;
 
 			if (session.getAttribute("carrito") != null) {
 				carrito = (Carrito) session.getAttribute("carrito");
@@ -56,6 +57,7 @@ public class Tienda extends HttpServlet {
 							return;
 						}
 						if (c > 0) {
+							carritoVacio = false;
 							int index = carrito.contiene(iterator);
 							if (index != -1) {
 								carrito.aumentarCantidadProducto(index, c);
@@ -68,8 +70,13 @@ public class Tienda extends HttpServlet {
 						mostrarPaginaError("Las cantidades introducidas no son correctas.", "index.jsp", session, request, response);
 					}
 				}
-				session.setAttribute("carrito", carrito);
-				gotoPage("/carrito.jsp", request, response);
+				if (carritoVacio==false) {
+					session.setAttribute("carrito", carrito);
+					gotoPage("/carrito.jsp", request, response);
+				} else {
+					mostrarPaginaError("El carrito esta vacio", "index.jsp", session, request, response);
+					return;
+				}
 			} catch (Exception e) {
 				mostrarPaginaError(e.getMessage(), "index.jsp", session, request, response);
 				return;
@@ -92,9 +99,9 @@ public class Tienda extends HttpServlet {
 		// Peticion de la búsqueda
 		if (request.getParameter("busqueda") != null){
 			String titulo = request.getParameter("form_titulo");
-            String artista = request.getParameter("form_artista");
+			String artista = request.getParameter("form_artista");
 			String pais = request.getParameter("form_pais");
-            String precio = request.getParameter("form_precio");
+			String precio = request.getParameter("form_precio");
 			try {
 				ArrayList<ProductoCarrito> productos = ControladorBD.buscarProductos(titulo, artista, pais, precio);
 				session.setAttribute("productos", productos);
@@ -119,6 +126,7 @@ public class Tienda extends HttpServlet {
 				precioTotal += (iterator.getCd().getPrecio()*iterator.getCantidad());
 
 				ok = ControladorBD.insertarProductoCompra(iterator.getCd().getId(),iterator.getCantidad(),iterator.getCd().getPrecio(),dateNow,username);
+				
 				if (!ok.equals("ok")) {
 					mostrarPaginaError(ok, "index.jsp", session, request, response);
 					return;

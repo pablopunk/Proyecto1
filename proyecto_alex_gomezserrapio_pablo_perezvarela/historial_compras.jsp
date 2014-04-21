@@ -53,6 +53,9 @@ pageEncoding="UTF-8"%>
 </c:choose>
 </div>
 
+<c:choose>
+<c:when test="${not empty sessionScope.historial_compras}">
+
 <c:forEach var="iterator_compra" items="${sessionScope.historial_compras}">
 <div class="compra">
 <table>
@@ -77,6 +80,14 @@ pageEncoding="UTF-8"%>
 </table>
 </div>
 </c:forEach>
+
+</c:when>
+<c:otherwise>
+
+<h3>No hay compras</h3>
+
+</c:otherwise>
+</c:choose>
 
 </center>
 </body>

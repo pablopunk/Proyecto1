@@ -12,6 +12,19 @@ pageEncoding="UTF-8"%>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="css/index.css">
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+	<style type="text/css">
+	form {
+		width: 400px;
+	}
+
+	form label {
+		float: left;
+	}
+
+	form input {
+		float: right;
+	}
+	</style>
 </head>
 
 <body>
@@ -34,13 +47,13 @@ pageEncoding="UTF-8"%>
 			<br><br>
 			<input type="hidden" value="" name="busqueda"/>
 			<label>Título</label>
-			<input type="text" name="form_titulo"><br>
+			<input type="text" name="form_titulo"><br><br>
 			<label>Artista</label>
-			<input type="text" name="form_artista"><br>
+			<input type="text" name="form_artista"><br><br>
 			<label>País</label>
-			<input type="text" name="form_pais"><br>
+			<input type="text" name="form_pais"><br><br>
 			<label>Precio máximo</label>
-			<input type="text" name="form_precio"><br>
+			<input type="text" name="form_precio"><br><br>
 			<input type="submit" value="Buscar">
 		</form>
 

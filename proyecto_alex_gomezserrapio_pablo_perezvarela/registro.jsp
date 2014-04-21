@@ -19,11 +19,17 @@ pageEncoding="UTF-8"%>
 		var mail = document.getElementById("form_mail").value;
 		var password = document.getElementById("form_password").value;
 		var password2 = document.getElementById("form_password2").value;
+		var username = document.getElementById("form_username").value;
 		var msg = "Se han producido errores:";
 		var error = 0;
 
 		if (!isEmail(mail) || isEmpty(mail)) {
 			msg += "\nIntroduce un correo valido";
+			error = 1;
+		}
+
+		if (isEmpty(username)) {
+			msg += "\nIntroduce un nombre de usuario valido";
 			error = 1;
 		}
 
