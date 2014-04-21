@@ -90,7 +90,7 @@ public class ControladorBD {
         }
 
         while (resultado.next()) {
-           euros += resultado.getFloat(0);
+           euros += resultado.getFloat(1);
        }
 
        if (euros > 99) {
