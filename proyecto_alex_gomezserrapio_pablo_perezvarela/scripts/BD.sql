@@ -40,8 +40,6 @@ create table productos_stock (
 drop table if exists comprar;
 create table comprar (
 	fecha varchar(22),
-	valoracion integer,
-	comentarios varchar(1024),
 	precio float,
 	username varchar(32) NOT NULL,
 	FOREIGN KEY (username) REFERENCES usuarios(username),
