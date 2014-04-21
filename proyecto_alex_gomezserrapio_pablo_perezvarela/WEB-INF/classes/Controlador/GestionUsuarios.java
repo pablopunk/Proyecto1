@@ -39,6 +39,9 @@ public class GestionUsuarios extends HttpServlet {
                     session.removeAttribute("user");
                     session.removeAttribute("carrito");
                 }
+				if (session.getAttribute("admin") != null){
+					session.removeAttribute("admin");
+				}
                 gotoPage("/index.jsp", request, response);
             } catch (Exception e) {
                 mostrarPaginaError(e.getMessage(), "index.jsp", session, request, response);
