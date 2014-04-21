@@ -96,7 +96,7 @@ public class Tienda extends HttpServlet {
 				session.setAttribute("carrito", new Carrito());
 				return;
 			} catch (Exception e) {
-				mostrarPaginaError(e.getMessage(), "index.jsp", session, request, response);
+				//mostrarPaginaError(e.getMessage(), "index.jsp", session, request, response);
 				return;
 			}
 		}
@@ -116,18 +116,18 @@ public class Tienda extends HttpServlet {
 		}
 		if (request.getParameter("insertar_producto") != null){
 			try {
-                String ok = ControladorBD.insertarProducto(request.getParameter("form_id"),request.getParameter("form_titulo"),request.getParameter("form_artista"),request.getParameter("form_pais"),request.getParameter("form_precio"),request.getParameter("form_cantidad"));
-                if (!ok.equals("ok")) {
-                    if (ok.contains("Duplicate")) {
-                        mostrarPaginaError("Ya existe un usuario con ese nombre, por favor elige otro.", "registro.jsp", session, request, response);
-                    } else {
-                        mostrarPaginaError(ok, "insertar_producto.jsp", session, request, response);
-                    }
-                }
+				String ok = ControladorBD.insertarProducto(request.getParameter("form_id"),request.getParameter("form_titulo"),request.getParameter("form_artista"),request.getParameter("form_pais"),request.getParameter("form_precio"),request.getParameter("form_cantidad"));
+				if (!ok.equals("ok")) {
+					if (ok.contains("Duplicate")) {
+						mostrarPaginaError("Ya existe un usuario con ese nombre, por favor elige otro.", "registro.jsp", session, request, response);
+					} else {
+						mostrarPaginaError(ok, "insertar_producto.jsp", session, request, response);
+					}
+				}
 				gotoPage("/index.jsp", request, response);
-            } catch (Exception e) {
-                mostrarPaginaError(e.getMessage(), "index.jsp", session, request, response);
-            }
+			} catch (Exception e) {
+				mostrarPaginaError(e.getMessage(), "index.jsp", session, request, response);
+			}
 		}
 	}
 
@@ -143,24 +143,24 @@ public class Tienda extends HttpServlet {
 		try {
 			for (ProductoCarrito iterator : productos) {
 				precioTotal += (iterator.getCd().getPrecio()*iterator.getCantidad());
+			}
+			if (ControladorBD.esVip(username)) {
+				precioTotal *= 0.8;
+			}
+			ok = ControladorBD.insertarCompra(username, precioTotal, dateNow);
 
+			if (!ok.equals("ok")) {
+				mostrarPaginaError(ok, "index.jsp", session, request, response);
+				return;
+			}
+
+			for (ProductoCarrito iterator : productos) {
 				ok = ControladorBD.insertarProductoCompra(iterator.getCd().getId(),iterator.getCantidad(),iterator.getCd().getPrecio(),dateNow,username);
 				
 				if (!ok.equals("ok")) {
 					mostrarPaginaError(ok, "index.jsp", session, request, response);
 					return;
 				}
-			}
-
-			if (ControladorBD.esVip(username)) {
-				precioTotal *= 0.8;
-			}
-
-			// Ahora inserto la compra
-			ok = ControladorBD.insertarCompra(username, precioTotal, dateNow);
-			if (!ok.equals("ok")) {
-				mostrarPaginaError(ok, "index.jsp", session, request, response);
-				return;
 			}
 
 			// Y envio el correo

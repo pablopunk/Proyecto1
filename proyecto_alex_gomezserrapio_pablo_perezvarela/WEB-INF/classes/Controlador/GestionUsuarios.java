@@ -61,17 +61,20 @@ public class GestionUsuarios extends HttpServlet {
                 if (!ok.equals("ok")) {
                     if (ok.contains("Duplicate")) {
                         mostrarPaginaError("Ya existe un usuario con ese nombre, por favor elige otro.", "registro.jsp", session, request, response);
+                        return;
                     } else {
                         mostrarPaginaError(ok, "registro.jsp", session, request, response);
+                        return;
                     }
-                    return;
                 }
                 Usuario usuario = ControladorBD.obtenerUsuario(request.getParameter("form_username"));
                 session.setAttribute("user", usuario);
                 gotoPage("/perfil.jsp", request, response);
+                return;
 
             } catch (Exception e) {
                 mostrarPaginaError(e.getMessage(), "index.jsp", session, request, response);
+                return;
             }
         }
 
