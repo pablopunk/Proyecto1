@@ -250,6 +250,43 @@ public class ControladorBD {
         return "ok";
     }
 	
+	public static ArrayList<ProductoCarrito> buscarProductos (String titulo, String artista, String pais, String precio) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException{
+
+		ArrayList<ProductoCarrito> productosBuscados = new ArrayList<ProductoCarrito>();
+		float precioFloat;
+		if (precio != "") precioFloat = Float.parseFloat(precio);
+		else precioFloat = -1;
+		
+		ArrayList<ProductoCarrito> productosStock = obtenerProductosStock();
+		for (ProductoCarrito producto : productosStock){
+			CD cd = producto.getCd();
+			if(titulo != ""){
+				if(!titulo.equals(cd.getNombre())){
+					continue;
+				}
+			}
+			if(artista != ""){
+				if(!artista.equals(cd.getAutor())){
+					continue;
+				}
+			}
+			if(pais != ""){
+				if(!pais.equals(cd.getPais())){
+					continue;
+				}
+			}
+			if(precioFloat > 0){
+				if(precioFloat < cd.getPrecio()){
+					continue;
+				}
+			}
+			productosBuscados.add(producto);
+		}
+		
+		return productosBuscados;
+		
+	}
+	
 	public static String insertarUsuario (String username, String password, String mail) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
         Connection con = obtenerConexionBD();
         Statement statement = con.createStatement();

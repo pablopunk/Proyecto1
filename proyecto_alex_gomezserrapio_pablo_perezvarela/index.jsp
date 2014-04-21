@@ -31,6 +31,7 @@ pageEncoding="UTF-8"%>
 
 			<c:choose>
 			<c:when test="${sessionScope.user != null}">
+			<a href="buscar.jsp"><li>Buscar</li></a>
 			<a href="perfil.jsp"><li class="lista_ultimo" style="color:#0BD318">${sessionScope.user.username}</li></a>
 		</c:when>
 		<c:otherwise>

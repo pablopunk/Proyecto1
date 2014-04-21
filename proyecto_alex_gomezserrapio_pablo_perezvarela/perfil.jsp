@@ -37,6 +37,7 @@ pageEncoding="UTF-8"%>
 				<input type="hidden" name="mostrar_tienda">
 				<a href="javascript:{}" onclick="document.getElementById('formulario_ver_tienda').submit();"><li>Tienda</li></a>
 			</form>
+			<a href="buscar.jsp"><li>Buscar</li></a>
 			<a href="perfil.jsp"><li class="lista_ultimo" style="color:#0BD318">${sessionScope.user.username}</li></a>
 		</div>
 
