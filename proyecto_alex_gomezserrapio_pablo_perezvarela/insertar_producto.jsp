@@ -62,7 +62,7 @@ pageEncoding="UTF-8"%>
 			<input type="text" name="form_artista"><br><br>
 			<label>País</label>
 			<input type="text" name="form_pais"><br><br>
-			<label>Precio máximo</label>
+			<label>Precio</label>
 			<input type="text" name="form_precio"><br><br>
 			<label>Cantidad</label>
 			<input type="text" name="form_cantidad"><br><br>
