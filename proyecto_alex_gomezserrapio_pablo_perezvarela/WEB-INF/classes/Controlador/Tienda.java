@@ -83,9 +83,24 @@ public class Tienda extends HttpServlet {
 				Carrito carrito = (Carrito) session.getAttribute("carrito");
 				Usuario usuario = (Usuario) session.getAttribute("user");
 				registrarCompra(usuario, carrito.getProductos(), session, request, response);
+				session.setAttribute("carrito", new Carrito());
 			} catch (Exception e) {
 				mostrarPaginaError(e.getMessage(), "index.jsp", session, request, response);
 				return;
+			}
+		}
+		// Peticion de la búsqueda
+		if (request.getParameter("busqueda") != null){
+			String titulo = request.getParameter("form_titulo");
+            String artista = request.getParameter("form_artista");
+			String pais = request.getParameter("form_pais");
+            String precio = request.getParameter("form_precio");
+			try {
+				ArrayList<ProductoCarrito> productos = ControladorBD.buscarProductos(titulo, artista, pais, precio);
+				session.setAttribute("productos", productos);
+				gotoPage("/tienda.jsp", request, response);
+			} catch (Exception e) {
+				mostrarPaginaError(e.getMessage(), "buscar.jsp", session, request, response);
 			}
 		}
 	}

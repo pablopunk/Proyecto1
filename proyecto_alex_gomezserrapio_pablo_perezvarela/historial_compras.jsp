@@ -12,6 +12,19 @@ pageEncoding="UTF-8"%>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="css/index.css">
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+
+	<style type="text/css">
+	#caratula {
+		width: 100px;
+	}
+	div.compra {
+		background-color: white;
+		border-radius: 5px;
+		width: 500px;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	</style>
 </head>
 
 <body>
@@ -31,7 +44,6 @@ pageEncoding="UTF-8"%>
 
 			<c:choose>
 			<c:when test="${sessionScope.user != null}">
-			<a href="buscar.jsp"><li>Buscar</li></a>
 			<a href="perfil.jsp"><li class="lista_ultimo" style="color:#0BD318">${sessionScope.user.username}</li></a>
 		</c:when>
 		<c:otherwise>
@@ -41,17 +53,30 @@ pageEncoding="UTF-8"%>
 </c:choose>
 </div>
 
-<h3 id="texto_bienvenida">Bienvenido a nuestra página de venta discos. Arriba de este texto encontrarás el menú con el que navegar por las distintas secciones de nuestra web. Irá cambiando según la página donde te encuetres.</h3>
-
-<form id="formulario_ver_tienda2" method="post" action="/proyecto_alex_gomezserrapio_pablo_perezvarela/Tienda">
-				<input type="hidden" name="mostrar_tienda">
-				<a href="javascript:{}"><img src="img/itunes_logo.png" onmouseover="this.src='img/itunes_logo2.png'" onmouseout="this.src='img/itunes_logo.png'" onclick="document.getElementById('formulario_ver_tienda2').submit();"/></a>
-			</form>
-
-<footer>
-	<span style="float:left">Copyright 2014 ©</span>
-	<span style="float:right">Alex Serrapio y Pablo Varela</span>
-</footer>
+<c:forEach var="iterator_compra" items="${sessionScope.historial_compras}">
+<div class="compra">
+<table>
+	<tr colspan="4" align="center"><h3>Fecha de pedido: ${iterator_compra.fecha}</h3></tr>
+	<c:forEach var="iterator_producto" items="${iterator_compra.productos}">
+	<tr>
+		<td rowspan="4">
+			<img id="caratula" src="tienda-img/${iterator_producto.cd.id}.jpg"/>
+		</td>
+	</tr>
+	<tr>
+		<td>${iterator_producto.cd.nombre}</td>
+	</tr>
+	<tr>
+		<td>${iterator_producto.cd.autor}</td>
+	</tr>
+	<tr>
+		<td>$${iterator_producto.cd.precio}</td>
+	</tr>
+</c:forEach>
+<tr colspan="4" align="center">Precio total de la compra $${iterator_compra.precio}</tr>
+</table>
+</div>
+</c:forEach>
 
 </center>
 </body>

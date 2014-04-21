@@ -102,13 +102,13 @@ public class ControladorBD {
         return cd;
     }
 
-    // Devuelve el producto y la cantidad de una compra concreta
-    public static ProductoCarrito obtenerProductoCompra(String fecha, String username) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+    // Devuelve los productos y la cantidad de una compra
+    public static ArrayList<ProductoCarrito> obtenerProductosCompra(String fecha, String username) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
         Connection con = obtenerConexionBD();
         Statement statement = con.createStatement();
         String query = "SELECT * FROM productos_pedido WHERE fechaCompra='" + fecha + "' AND username='" + username + "';";
         ResultSet resultado = null;
-        ProductoCarrito producto = new ProductoCarrito();
+        ArrayList<ProductoCarrito> productos = new ArrayList<>();
         try {
             resultado = statement.executeQuery(query);
         } catch (SQLException e) {
@@ -117,11 +117,13 @@ public class ControladorBD {
         }
 
         while (resultado.next()) {
+            ProductoCarrito producto = new ProductoCarrito();
             producto.setCd(obtenerProducto(resultado.getString("producto")));
             producto.setCantidad(resultado.getInt("cantidad"));
+            productos.add(producto);
         }
 
-        return producto;
+        return productos;
     }
 
     // Devuelve las compras de un usuario
@@ -145,7 +147,7 @@ public class ControladorBD {
             nuevaCompra.setValoracion(resultado.getInt("valoracion"));
             nuevaCompra.setComentarios(resultado.getString("comentarios"));
             nuevaCompra.setPrecio(resultado.getFloat("precio"));
-            nuevaCompra.setProducto(obtenerProductoCompra(resultado.getString("fecha"),resultado.getString("username")));
+            nuevaCompra.setProductos(obtenerProductosCompra(resultado.getString("fecha"),resultado.getString("username")));
             compras.add(nuevaCompra);
         }
 
@@ -249,6 +251,58 @@ public class ControladorBD {
         }
         return "ok";
     }
+	
+	public static ArrayList<ProductoCarrito> buscarProductos (String titulo, String artista, String pais, String precio) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException{
+
+		ArrayList<ProductoCarrito> productosBuscados = new ArrayList<ProductoCarrito>();
+		float precioFloat;
+		if (precio != "") precioFloat = Float.parseFloat(precio);
+		else precioFloat = -1;
+		
+		ArrayList<ProductoCarrito> productosStock = obtenerProductosStock();
+		for (ProductoCarrito producto : productosStock){
+			CD cd = producto.getCd();
+			if(titulo != ""){
+				if(!titulo.equals(cd.getNombre())){
+					continue;
+				}
+			}
+			if(artista != ""){
+				if(!artista.equals(cd.getAutor())){
+					continue;
+				}
+			}
+			if(pais != ""){
+				if(!pais.equals(cd.getPais())){
+					continue;
+				}
+			}
+			if(precioFloat > 0){
+				if(precioFloat < cd.getPrecio()){
+					continue;
+				}
+			}
+			productosBuscados.add(producto);
+		}
+		
+		return productosBuscados;
+		
+	}
+	
+	public static String insertarUsuario (String username, String password, String mail) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+        Connection con = obtenerConexionBD();
+        Statement statement = con.createStatement();
+
+        String query = "INSERT INTO usuarios VALUES ('"+username+"','"+password+"','"+mail+"','0');";
+
+        try {
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            return e.getMessage();
+        }
+        return "ok";
+    }
+	
     public static String insertarCompra (String username, float precioTotal, String fecha) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
         Connection con = obtenerConexionBD();
         Statement statement = con.createStatement();

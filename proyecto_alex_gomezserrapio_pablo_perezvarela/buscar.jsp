@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
@@ -12,20 +12,6 @@ pageEncoding="UTF-8"%>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="css/index.css">
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
-
-	<style type="text/css">
-	form {
-		width: 400px;
-	}
-
-	form label {
-		float: left;
-	}
-
-	form input {
-		float: right;
-	}
-	</style>
 </head>
 
 <body>
@@ -44,14 +30,18 @@ pageEncoding="UTF-8"%>
 			<a href="iniciar_sesion.jsp"><li class="lista_ultimo">Iniciar sesión</li></a>
 		</div>
 		
-		<form action="/proyecto_alex_gomezserrapio_pablo_perezvarela/GestionUsuarios" method="post">
+		<form action="/proyecto_alex_gomezserrapio_pablo_perezvarela/Tienda" method="post">
 			<br><br>
-			<input type="hidden" value="" name="iniciar_sesion"/>
-			<label>Username</label>
-			<input type="text" name="form_username"><br><br>
-			<label>Password</label>
-			<input type="password" name="form_password"><br><br>
-			<input type="submit" value="Iniciar sesion">
+			<input type="hidden" value="" name="busqueda"/>
+			<label>Título</label>
+			<input type="text" name="form_titulo"><br>
+			<label>Artista</label>
+			<input type="text" name="form_artista"><br>
+			<label>País</label>
+			<input type="text" name="form_pais"><br>
+			<label>Precio máximo</label>
+			<input type="text" name="form_precio"><br>
+			<input type="submit" value="Buscar">
 		</form>
 
 		<footer>
