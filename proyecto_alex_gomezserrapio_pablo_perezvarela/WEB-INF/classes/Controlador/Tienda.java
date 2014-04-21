@@ -110,6 +110,21 @@ public class Tienda extends HttpServlet {
 				mostrarPaginaError(e.getMessage(), "buscar.jsp", session, request, response);
 			}
 		}
+		if (request.getParameter("insertar_producto") != null){
+			try {
+                String ok = ControladorBD.insertarProducto(request.getParameter("form_id"),request.getParameter("form_titulo"),request.getParameter("form_artista"),request.getParameter("form_pais"),request.getParameter("form_precio"),request.getParameter("form_cantidad"));
+                if (!ok.equals("ok")) {
+                    if (ok.contains("Duplicate")) {
+                        mostrarPaginaError("Ya existe un usuario con ese nombre, por favor elige otro.", "registro.jsp", session, request, response);
+                    } else {
+                        mostrarPaginaError(ok, "insertar_producto.jsp", session, request, response);
+                    }
+                }
+				gotoPage("/index.jsp", request, response);
+            } catch (Exception e) {
+                mostrarPaginaError(e.getMessage(), "index.jsp", session, request, response);
+            }
+		}
 	}
 
 	private void registrarCompra (Usuario usuario, ArrayList<ProductoCarrito> productos, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, ServletException, IOException {

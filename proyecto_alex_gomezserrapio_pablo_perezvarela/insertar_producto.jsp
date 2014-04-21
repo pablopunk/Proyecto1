@@ -40,20 +40,22 @@ pageEncoding="UTF-8"%>
 				<a href="javascript:{}" onclick="document.getElementById('formulario_ver_tienda').submit();"><li>Tienda</li></a>
 			</form>
 			<c:choose>
-			<c:when test="${sessionScope.user != null}">
-			<a href="buscar.jsp"><li>Buscar</li></a>
-			<a href="perfil.jsp"><li class="lista_ultimo" style="color:#0BD318">${sessionScope.user.username}</li></a>
-		</c:when>
-		<c:otherwise>
-		<a href="registro.jsp"><li>Registro</li></a>
-		<a href="iniciar_sesion.jsp"><li class="lista_ultimo">Iniciar sesión</li></a>
-	</c:otherwise>
-</c:choose>
+				<c:when test="${sessionScope.user != null && sessionScope.admin != null}">
+					<a href="insertar_producto.jsp"><li>Nuevo producto</li></a>
+					<a href="perfil.jsp"><li class="lista_ultimo" style="color:#0BD318">${sessionScope.user.username}</li></a>
+				</c:when>
+				<c:otherwise>
+					<a href="registro.jsp"><li>Registro</li></a>
+					<a href="iniciar_sesion.jsp"><li class="lista_ultimo">Iniciar sesión</li></a>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		
 		<form action="/proyecto_alex_gomezserrapio_pablo_perezvarela/Tienda" method="post">
 			<br><br>
-			<input type="hidden" value="" name="busqueda"/>
+			<input type="hidden" value="" name="insertar_producto"/>
+			<label>ID</label>
+			<input type="text" name="form_id"><br><br>
 			<label>Título</label>
 			<input type="text" name="form_titulo"><br><br>
 			<label>Artista</label>
@@ -62,7 +64,9 @@ pageEncoding="UTF-8"%>
 			<input type="text" name="form_pais"><br><br>
 			<label>Precio máximo</label>
 			<input type="text" name="form_precio"><br><br>
-			<input type="submit" value="Buscar">
+			<label>Cantidad</label>
+			<input type="text" name="form_cantidad"><br><br>
+			<input type="submit" value="Insertar producto">
 		</form>
 
 		<footer>

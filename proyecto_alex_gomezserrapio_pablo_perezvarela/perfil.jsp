@@ -37,8 +37,20 @@ pageEncoding="UTF-8"%>
 				<input type="hidden" name="mostrar_tienda">
 				<a href="javascript:{}" onclick="document.getElementById('formulario_ver_tienda').submit();"><li>Tienda</li></a>
 			</form>
+			<c:choose>
+			<c:when test="${sessionScope.user != null && sessionScope.admin == null}">
 			<a href="buscar.jsp"><li>Buscar</li></a>
 			<a href="perfil.jsp"><li class="lista_ultimo" style="color:#0BD318">${sessionScope.user.username}</li></a>
+		</c:when>
+		<c:when test="${sessionScope.user != null && sessionScope.admin != null}">
+			<a href="insertar_producto.jsp"><li>Nuevo producto</li></a>
+			<a href="perfil.jsp"><li class="lista_ultimo" style="color:#0BD318">${sessionScope.user.username}</li></a>
+		</c:when>
+		<c:otherwise>
+		<a href="registro.jsp"><li>Registro</li></a>
+		<a href="iniciar_sesion.jsp"><li class="lista_ultimo">Iniciar sesión</li></a>
+	</c:otherwise>
+</c:choose>
 		</div>
 
 		<br><br>

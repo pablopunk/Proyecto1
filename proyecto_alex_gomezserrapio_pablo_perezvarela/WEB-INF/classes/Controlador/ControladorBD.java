@@ -49,6 +49,31 @@ public class ControladorBD {
 
         return false;
     }
+	
+	// Devuelve TRUE si el usuario es admin
+	public static boolean esAdmin(String username)throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+        Connection con = obtenerConexionBD();
+        Statement statement = con.createStatement();
+        String query = "SELECT admin FROM usuarios WHERE username='" + username + "';";
+        ResultSet resultado = null;
+        String es_admin = "";
+        try {
+            resultado = statement.executeQuery(query);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+
+        while (resultado.next()) {
+            es_admin = resultado.getString("admin");
+        }
+
+        if (es_admin.equals("1")) {
+        	return true;
+        }
+
+        return false;
+    }
 
     // Devuelve TRUE si el usuario tiene mas de 100 compras
     public static boolean esVip(String username) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
@@ -250,6 +275,31 @@ public static String insertarProductoCompra (String id, int cantidad, float prec
         return e.getMessage();
     }
     return "ok";
+}
+
+public static String insertarProducto (String id, String titulo, String artista, String pais, String precio, String stock) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+	Connection con = obtenerConexionBD();
+    Statement statement = con.createStatement();
+	Statement statement2 = con.createStatement();
+	int stockActual = 0;
+	
+	int stockInt = Integer.parseInt(stock);
+	String query = "INSERT INTO productos VALUES ('"+id+"','"+titulo+" | "+artista+" | "+pais+" | "+precio+"');";
+	
+	try{
+		statement.executeUpdate(query);
+		query = "INSERT INTO productos_stock VALUES ('"+id+"','"+stockInt+"');";
+		statement2.executeUpdate(query);
+	} catch (SQLException e){
+		if (e.getMessage().contains("Duplicate")){
+			stockActual = obtenerStockProducto(id);
+			stockInt += stockActual;
+			query = "UPDATE productos_stock SET cantidad="+stockInt+" WHERE producto='"+id+"';";
+			statement2.executeUpdate(query);
+			return "ok";
+		}
+	}
+	return "ok";
 }
 
 public static ArrayList<ProductoCarrito> buscarProductos (String titulo, String artista, String pais, String precio) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException{
