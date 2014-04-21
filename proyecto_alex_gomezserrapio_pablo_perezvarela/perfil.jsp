@@ -91,4 +91,6 @@ pageEncoding="UTF-8"%>
 
 </center>
 </body>
+</c:otherwise>
+</c:choose>
 </html>
