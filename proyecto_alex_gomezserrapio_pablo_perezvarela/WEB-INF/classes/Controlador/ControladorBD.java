@@ -169,8 +169,6 @@ public static ArrayList<Compra> obtenerHistorialCompras(String username) throws 
         Compra nuevaCompra = new Compra();
         nuevaCompra.setUsername(resultado.getString("username"));
         nuevaCompra.setFecha(resultado.getString("fecha"));
-        nuevaCompra.setValoracion(resultado.getInt("valoracion"));
-        nuevaCompra.setComentarios(resultado.getString("comentarios"));
         nuevaCompra.setPrecio(resultado.getFloat("precio"));
         nuevaCompra.setProductos(obtenerProductosCompra(resultado.getString("fecha"),resultado.getString("username")));
         compras.add(nuevaCompra);

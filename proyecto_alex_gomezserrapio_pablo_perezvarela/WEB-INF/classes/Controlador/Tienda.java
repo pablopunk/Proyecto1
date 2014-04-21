@@ -96,7 +96,7 @@ public class Tienda extends HttpServlet {
 				session.setAttribute("carrito", new Carrito());
 				return;
 			} catch (Exception e) {
-				mostrarPaginaError(e.getMessage(), "index.jsp", session, request, response);
+				//mostrarPaginaError(e.getMessage(), "index.jsp", session, request, response);
 				return;
 			}
 		}
@@ -144,6 +144,12 @@ public class Tienda extends HttpServlet {
 			for (ProductoCarrito iterator : productos) {
 				precioTotal += (iterator.getCd().getPrecio()*iterator.getCantidad());
 
+				ok = ControladorBD.insertarCompra(username, precioTotal, dateNow);
+				if (!ok.equals("ok")) {
+				mostrarPaginaError(ok, "index.jsp", session, request, response);
+				return;
+			}
+			
 				ok = ControladorBD.insertarProductoCompra(iterator.getCd().getId(),iterator.getCantidad(),iterator.getCd().getPrecio(),dateNow,username);
 				
 				if (!ok.equals("ok")) {
@@ -157,11 +163,8 @@ public class Tienda extends HttpServlet {
 			}
 
 			// Ahora inserto la compra
-			ok = ControladorBD.insertarCompra(username, precioTotal, dateNow);
-			if (!ok.equals("ok")) {
-				mostrarPaginaError(ok, "index.jsp", session, request, response);
-				return;
-			}
+			
+			
 
 			// Y envio el correo
 			enviarCorreoConfirmacion (usuario, precioTotal, session, request, response);
