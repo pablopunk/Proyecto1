@@ -20,6 +20,9 @@ public class GestionUsuarios extends HttpServlet {
                 if (ControladorBD.validarUsuario(username, password)) {
                     Usuario usuario = ControladorBD.obtenerUsuario(username);
                     session.setAttribute("user", usuario);
+					if(ControladorBD.esAdmin(username)){
+						session.setAttribute("admin", 1);
+					}
                     gotoPage("/perfil.jsp", request, response);
                 } else {
                     mostrarPaginaError("La combinación de usuario y contraseña es errónea", "iniciar_sesion.jsp", session, request, response);

@@ -30,8 +30,12 @@ pageEncoding="UTF-8"%>
 			</form>
 
 			<c:choose>
-			<c:when test="${sessionScope.user != null}">
+			<c:when test="${sessionScope.user != null && sessionScope.admin == null}">
 			<a href="buscar.jsp"><li>Buscar</li></a>
+			<a href="perfil.jsp"><li class="lista_ultimo" style="color:#0BD318">${sessionScope.user.username}</li></a>
+		</c:when>
+		<c:when test="${sessionScope.user != null && sessionScope.admin != null}">
+			<a href="insertar_producto.jsp"><li>Nuevo producto</li></a>
 			<a href="perfil.jsp"><li class="lista_ultimo" style="color:#0BD318">${sessionScope.user.username}</li></a>
 		</c:when>
 		<c:otherwise>

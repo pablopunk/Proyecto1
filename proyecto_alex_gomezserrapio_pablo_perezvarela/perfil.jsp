@@ -34,32 +34,40 @@ pageEncoding="UTF-8"%>
 <c:otherwise>
 
 <body>
+	<center>
 
-</c:otherwise>
+		<header>
+			<a href="index.jsp"><img id="logo" src="img/itunes_logo.png" onmouseover="this.src='img/itunes_logo2.png'" onmouseout="this.src='img/itunes_logo.png'"/></a>
+			<h1>Música para DAA</h1>
+		</header>
+		<div id="menu">
+			<form id="formulario_ver_tienda" method="post" action="/proyecto_alex_gomezserrapio_pablo_perezvarela/Tienda">
+				<input type="hidden" name="mostrar_tienda">
+				<a href="javascript:{}" onclick="document.getElementById('formulario_ver_tienda').submit();"><li>Tienda</li></a>
+			</form>
+			<c:choose>
+			<c:when test="${sessionScope.user != null && sessionScope.admin == null}">
+			<a href="buscar.jsp"><li>Buscar</li></a>
+			<a href="perfil.jsp"><li class="lista_ultimo" style="color:#0BD318">${sessionScope.user.username}</li></a>
+		</c:when>
+		<c:when test="${sessionScope.user != null && sessionScope.admin != null}">
+			<a href="insertar_producto.jsp"><li>Nuevo producto</li></a>
+			<a href="perfil.jsp"><li class="lista_ultimo" style="color:#0BD318">${sessionScope.user.username}</li></a>
+		</c:when>
+		<c:otherwise>
+		<a href="registro.jsp"><li>Registro</li></a>
+		<a href="iniciar_sesion.jsp"><li class="lista_ultimo">Iniciar sesión</li></a>
+	</c:otherwise>
 </c:choose>
+		</div>
 
-<center>
+		<br><br>
+		<p>${sessionScope.user.username} - ${sessionScope.user.mail}</p>
 
-	<header>
-		<a href="index.jsp"><img id="logo" src="img/itunes_logo.png" onmouseover="this.src='img/itunes_logo2.png'" onmouseout="this.src='img/itunes_logo.png'"/></a>
-		<h1>Música para DAA</h1>
-	</header>
-	<div id="menu">
-		<form id="formulario_ver_tienda" method="post" action="/proyecto_alex_gomezserrapio_pablo_perezvarela/Tienda">
-			<input type="hidden" name="mostrar_tienda">
-			<a href="javascript:{}" onclick="document.getElementById('formulario_ver_tienda').submit();"><li>Tienda</li></a>
-		</form>
-		<a href="buscar.jsp"><li>Buscar</li></a>
-		<a href="perfil.jsp"><li class="lista_ultimo" style="color:#0BD318">${sessionScope.user.username}</li></a>
-	</div>
-
-	<br><br>
-	<p>${sessionScope.user.username} - ${sessionScope.user.mail}</p>
-
-	<c:choose>
-	<c:when test="${sessionScope.user.vip == true}">
-	<h3 style="color:#0BD318">Eres usuario VIP</h3>
-</c:when>
+		<c:choose>
+		<c:when test="${sessionScope.user.vip == true}">
+		<h3 style="color:#0BD318">Eres usuario VIP</h3>
+	</c:when>
 </c:choose>
 
 <br><br>
@@ -83,4 +91,6 @@ pageEncoding="UTF-8"%>
 
 </center>
 </body>
+</c:otherwise>
+</c:choose>
 </html>
