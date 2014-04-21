@@ -92,7 +92,9 @@ public class Tienda extends HttpServlet {
 				Carrito carrito = (Carrito) session.getAttribute("carrito");
 				Usuario usuario = (Usuario) session.getAttribute("user");
 				registrarCompra(usuario, carrito.getProductos(), session, request, response);
+				usuario.setVip(ControladorBD.esVip(usuario.getUsername()));
 				session.setAttribute("carrito", new Carrito());
+				return;
 			} catch (Exception e) {
 				mostrarPaginaError(e.getMessage(), "index.jsp", session, request, response);
 				return;
@@ -135,6 +137,10 @@ public class Tienda extends HttpServlet {
 				}
 			}
 
+			if (ControladorBD.esVip(username)) {
+				precioTotal *= 0.8;
+			}
+
 			// Ahora inserto la compra
 			ok = ControladorBD.insertarCompra(username, precioTotal, dateNow);
 			if (!ok.equals("ok")) {
@@ -145,6 +151,7 @@ public class Tienda extends HttpServlet {
 			// Y envio el correo
 			enviarCorreoConfirmacion (usuario, precioTotal, session, request, response);
 			gotoPage("/finalizar_compra.jsp", request, response);
+			return;
 
 		} catch (Exception e) {
 			mostrarPaginaError(e.getMessage(), "index.jsp", session, request, response);

@@ -97,7 +97,19 @@ pageEncoding="UTF-8"%>
 <c:choose>
 <c:when test="${not empty sessionScope.carrito.productos}">
 
+<c:choose>
+<c:when test="${sessionScope.user.vip == true}">
+
+<div style="color:#0BD318">Descuento VIP: 20%</div>
+<h3>Precio Total: <fmt:formatNumber value="${precioTotal*0.8}" type="currency" currencySymbol="&dollar;" /></h3>
+
+</c:when>
+<c:otherwise>
+
 <h3>Precio Total: <fmt:formatNumber value="${precioTotal}" type="currency" currencySymbol="&dollar;" /></h3>
+
+</c:otherwise>
+</c:choose>
 
 <input type="hidden" name="finalizar_compra">
 <input type="image" src="img/finalizar_compra.png" class="button">
