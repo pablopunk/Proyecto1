@@ -97,14 +97,18 @@ pageEncoding="UTF-8"%>
 	</c:when>
 	<c:otherwise>
 	<p class="stock">${iterator.stock} restantes</p>
+	<c:if test="${sessionScope.user != null && sessionScope.admin == null}">
 	<input type="number" name="cantidad_${iterator.cd.id}" value="0" min="0" max="${iterator.stock}"/>
+	</c:if>
 </c:otherwise>	
 </c:choose>
 </div>
 </c:forEach>
 
+<c:if test="${sessionScope.user != null && sessionScope.admin == null}">
 <input type="hidden" name="comprar">
 <input type="image" src="img/comprar.png" class="button">
+</c:if>
 
 </form>
 
