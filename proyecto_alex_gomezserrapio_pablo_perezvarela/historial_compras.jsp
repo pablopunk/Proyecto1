@@ -62,7 +62,7 @@ pageEncoding="UTF-8"%>
 	<tr colspan="4" align="center"><h3>Fecha de pedido: ${iterator_compra.fecha}</h3></tr>
 	<c:forEach var="iterator_producto" items="${iterator_compra.productos}">
 	<tr>
-		<td rowspan="4">
+		<td rowspan="5">
 			<img id="caratula" src="tienda-img/${iterator_producto.cd.id}.jpg"/>
 		</td>
 	</tr>
@@ -74,6 +74,9 @@ pageEncoding="UTF-8"%>
 	</tr>
 	<tr>
 		<td>$${iterator_producto.cd.precio}</td>
+	</tr>
+	<tr>
+		<td>${iterator_producto.cantidad} unidades</td>
 	</tr>
 </c:forEach>
 <tr colspan="4" align="center">Precio total de la compra $${iterator_compra.precio}</tr>

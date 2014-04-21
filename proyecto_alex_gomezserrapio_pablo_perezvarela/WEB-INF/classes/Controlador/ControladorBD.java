@@ -90,10 +90,10 @@ public class ControladorBD {
         }
 
         while (resultado.next()) {
-         euros += resultado.getFloat(0);
-     }
+           euros += resultado.getFloat(0);
+       }
 
-     if (euros > 99) {
+       if (euros > 99) {
         return true;
     }
 
@@ -252,8 +252,9 @@ public static void actualizarStockProducto (String id, int cantidadComprada) thr
     Statement statement = con.createStatement();
 
     int cantidadAntigua = obtenerStockProducto(id);
+    int cantidadNueva = cantidadAntigua - cantidadComprada;
 
-    String query = "UPDATE productos_stock SET cantidad="+(cantidadAntigua-cantidadComprada)+" WHERE producto='"+id+"';";
+    String query = "UPDATE productos_stock SET cantidad="+cantidadNueva+" WHERE producto='"+id+"';";
 
     try {
         statement.executeUpdate(query);
@@ -311,26 +312,26 @@ public static ArrayList<ProductoCarrito> buscarProductos (String titulo, String 
   
   ArrayList<ProductoCarrito> productosStock = obtenerProductosStock();
   for (ProductoCarrito producto : productosStock){
-     CD cd = producto.getCd();
-     if(titulo != ""){
-        if(!titulo.equals(cd.getNombre())){
-           continue;
-       }
-   }
-   if(artista != ""){
+   CD cd = producto.getCd();
+   if(titulo != ""){
+    if(!titulo.equals(cd.getNombre())){
+     continue;
+ }
+}
+if(artista != ""){
     if(!artista.equals(cd.getAutor())){
-       continue;
-   }
+     continue;
+ }
 }
 if(pais != ""){
     if(!pais.equals(cd.getPais())){
-       continue;
-   }
+     continue;
+ }
 }
 if(precioFloat > 0){
     if(precioFloat < cd.getPrecio()){
-       continue;
-   }
+     continue;
+ }
 }
 productosBuscados.add(producto);
 }

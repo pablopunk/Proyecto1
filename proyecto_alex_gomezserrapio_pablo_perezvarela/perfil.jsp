@@ -25,6 +25,14 @@ pageEncoding="UTF-8"%>
 	</style>
 </head>
 
+<c:choose>
+<c:when test="${empty sessionScope.user}">
+
+<body onload="window.location = 'iniciar_sesion.jsp';"></body>
+
+</c:when>
+<c:otherwise>
+
 <body>
 	<center>
 
